@@ -17,7 +17,10 @@ class _BurcDetayState extends State<BurcDetay> {
   @override
   void initState() {
     super.initState();
-    apparRenginiBul();
+    print('init state çalıştı');
+    WidgetsBinding.instance!.addPostFrameCallback(
+      (_) => apparRenginiBul(),
+    ); // uzun süren işlemlerd build etmesi uzun sürer ve yavaşlayabilir bunun için bu methodu kullanırız önce görseli ekrana getirir ardından build eder.
     //_generator = PaletteGenerator.fromImageProvider(AssetImage(assetName),);
   }
 
@@ -60,10 +63,12 @@ class _BurcDetayState extends State<BurcDetay> {
   }
 
   void apparRenginiBul() async {
+    print('build bitti baskin renk bulunacak');
     _generator = await PaletteGenerator.fromImageProvider(
       AssetImage('images/${widget.secilenBurc.burcBuyukResim}'),
     );
     appbarRengi = _generator.dominantColor!.color;
+    print('baskin renk bulundu build methodu tekrar çaliştirilacak.');
     setState(() {});
     print(appbarRengi);
   }
