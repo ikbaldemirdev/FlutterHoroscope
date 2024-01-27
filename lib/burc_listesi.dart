@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_burclar/burc_item.dart';
 import 'package:flutter_burclar/data/strings.dart';
 import 'package:flutter_burclar/model/burc.dart';
 
@@ -13,10 +14,18 @@ class BurcListesi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Burçlar Listesi"),
+        backgroundColor: (Colors.grey.shade300),
+        title: Text(
+          "Burçlar Listesi",
+        ),
       ),
       body: Center(
-        child: Text("Burç Listesi Buraya Gelecek."),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return BurcItem(listelenenBurc: tumBurclar[index]);
+          },
+          itemCount: tumBurclar.length,
+        ),
       ),
     );
   }
@@ -32,7 +41,8 @@ class BurcListesi extends StatelessWidget {
           Strings.BURC_ADLARI[i].toLowerCase() + '${i + 1}.png';
       var burcBuyukResim =
           Strings.BURC_ADLARI[i].toLowerCase() + '_buyuk' + '${i + 1}.png';
-      Burc eklenecekBurc = Burc(burcAdi,burcTarih,burcDetay,burcKucukResim,burcBuyukResim);
+      Burc eklenecekBurc =
+          Burc(burcAdi, burcTarih, burcDetay, burcKucukResim, burcBuyukResim);
       gecici.add(eklenecekBurc);
     }
     return gecici;
